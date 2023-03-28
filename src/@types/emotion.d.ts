@@ -10,10 +10,13 @@ declare module '@emotion/react' {
       gray500: string;
       gray600: string;
       gray700: string;
+      gray800: string;
       gray900: string;
 
       blue300: string;
       blue500: string;
+
+      red500: string;
     };
 
     border: {

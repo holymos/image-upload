@@ -7,10 +7,13 @@ export const theme = {
     gray500: '#C3CBD5',
     gray600: '#C7CDD3',
     gray700: '#677489',
-    gray900: '#495567',
+    gray800: '#495567',
+    gray900: '#3D485F',
 
     blue300: '#B9D1FF',
     blue500: '#3F80FF',
+
+    red500: '#C64D32',
   },
 
   border: {
