@@ -5,16 +5,23 @@ import { AvatarUpload } from './components/AvatarUpload';
 
 function App() {
   const [initialImage, setInitialImage] = useState('');
+  const [hasError, setHasError] = useState(false);
 
   const discardImageHandler = () => setInitialImage('');
+  const errorHandler = (isError: boolean) => setHasError(isError);
 
-  return initialImage ? (
+  return initialImage || hasError ? (
     <AvatarRepositionImage
+      hasError={hasError}
       initialImage={initialImage}
       discardImageHandler={discardImageHandler}
+      errorHandler={errorHandler}
     />
   ) : (
-    <AvatarUpload setInitialImage={setInitialImage} />
+    <AvatarUpload
+      setInitialImage={setInitialImage}
+      errorHandler={errorHandler}
+    />
   );
 }
 
