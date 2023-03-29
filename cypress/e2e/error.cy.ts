@@ -46,7 +46,7 @@ describe('Error', () => {
       .should('not.have.value')
       .selectFile('cypress/fixtures/error.txt', { action: 'drag-drop' });
 
-    cy.get('.css-1ehb6m7-ErrorMessage-ErrorMessage > button').click();
+    cy.contains('Try again').click();
 
     cy.contains('Sorry, the upload failed.').should('not.exist');
     cy.contains('Try again').should('not.exist');

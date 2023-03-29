@@ -26,22 +26,26 @@ export const AvatarRepositionImage: React.FC<AvatarRepositionImageProps> = ({
   const avatarEditor = useRef<AvatarEditor | null>(null);
 
   const onSaveImageHandler = () => {
-    if (avatarEditor.current) {
-      avatarEditor.current.getImage().toBlob((data) => {
-        if (data) {
-          const reader = new FileReader();
-          reader.readAsDataURL(data);
+    try {
+      if (avatarEditor.current) {
+        avatarEditor.current.getImage().toBlob((data) => {
+          if (data) {
+            const reader = new FileReader();
+            reader.readAsDataURL(data);
 
-          reader.onload = async () => {
-            const base64 = reader.result?.toString();
+            reader.onload = async () => {
+              const base64 = reader.result?.toString();
 
-            if (base64) saveUserImage(base64);
-          };
-        }
-      }, 'image/jpeg');
+              if (base64) saveUserImage(base64);
+            };
+          }
+        }, 'image/jpeg');
+      }
+    } catch (error) {
+      console.log(error);
+      errorHandler(true);
+      discardImageHandler();
     }
-
-    discardImageHandler();
   };
 
   const viewportWidth = window.innerWidth;

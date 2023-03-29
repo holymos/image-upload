@@ -29,35 +29,19 @@ export const AvatarUpload: React.FC<AvatarUploadProps> = ({
   };
 
   const handleDrop = (e: DragEvent) => {
-    const { files } = e.dataTransfer;
-    const file = (files || [])[0];
-    const fileType = file && files[0].name.split('.')[1];
+    try {
+      const { files } = e.dataTransfer;
+      const file = (files || [])[0];
+      const fileType = file && files[0].name.split('.')[1];
 
-    e.preventDefault();
-    e.stopPropagation();
-    setDragActive(false);
+      e.preventDefault();
+      e.stopPropagation();
+      setDragActive(false);
 
-    if (!fileType || !['png', 'jpeg', 'jpg', 'webp'].includes(fileType)) {
-      return errorHandler(true);
-    }
+      if (!fileType || !['png', 'jpeg', 'jpg', 'webp'].includes(fileType)) {
+        throw new Error('Invalid message format');
+      }
 
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-
-    reader.onload = async () => {
-      const base64 = reader.result?.toString();
-
-      if (base64) setInitialImage(base64);
-    };
-  };
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-
-    const { files } = e.target;
-    const file = (files || [])[0];
-
-    if (file) {
       const reader = new FileReader();
       reader.readAsDataURL(file);
 
@@ -66,6 +50,32 @@ export const AvatarUpload: React.FC<AvatarUploadProps> = ({
 
         if (base64) setInitialImage(base64);
       };
+    } catch (error) {
+      console.log(error);
+      return errorHandler(true);
+    }
+  };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    try {
+      e.preventDefault();
+
+      const { files } = e.target;
+      const file = (files || [])[0];
+
+      if (file) {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+
+        reader.onload = async () => {
+          const base64 = reader.result?.toString();
+
+          if (base64) setInitialImage(base64);
+        };
+      }
+    } catch (error) {
+      console.log(error);
+      return errorHandler(true);
     }
   };
 

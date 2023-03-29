@@ -53,6 +53,10 @@ export const Controls = styled.div`
       border-radius: ${theme.border.xl};
       background-color: ${theme.colors.gray800};
       color: ${theme.colors.white500};
+
+      &:hover {
+        background-color: ${theme.colors.gray700};
+      }
     }
   `}
 `;
@@ -163,6 +167,10 @@ export const ErrorMessage = styled.div`
       background: none;
       text-decoration: underline;
       color: ${theme.colors.gray900};
+
+      &:hover {
+        color: ${theme.colors.gray700};
+      }
     }
 
     @media (max-width: 300px) {
