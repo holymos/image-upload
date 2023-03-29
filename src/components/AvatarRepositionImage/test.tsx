@@ -13,10 +13,6 @@ vi.mock('react-avatar-editor', () => ({
   },
 }));
 
-vi.mock('../Icons/FallbackIcon', () => ({
-  FallbackIcon: () => <div data-testid="FallbackIcon" />,
-}));
-
 vi.mock('../Icons/CloseIcon', () => ({
   CloseIcon: () => <div data-testid="CloseIcon" />,
 }));
@@ -41,7 +37,6 @@ describe('<AvatarRepositionImage>', () => {
     const { container } = renderWithTheme(
       <AvatarRepositionImage
         initialImage=""
-        hasError={false}
         errorHandler={mockErrorHandler}
         discardImageHandler={mockDiscardImageHandler}
       />
@@ -54,50 +49,10 @@ describe('<AvatarRepositionImage>', () => {
     expect(screen.getByRole('button', { name: /save/i })).toBeInTheDocument();
   });
 
-  it('should render error message', () => {
-    const { container } = renderWithTheme(
-      <AvatarRepositionImage
-        initialImage=""
-        hasError={true}
-        errorHandler={mockErrorHandler}
-        discardImageHandler={mockDiscardImageHandler}
-      />
-    );
-
-    expect(screen.queryByTestId('AvatarEditor')).not.toBeInTheDocument();
-    expect(screen.queryByText(/crop/i)).not.toBeInTheDocument();
-    expect(container.querySelector('input')).not.toBeInTheDocument();
-
-    expect(screen.getByText('Sorry, the upload failed.')).toBeInTheDocument();
-    expect(
-      screen.getByRole('button', { name: /try again/i })
-    ).toBeInTheDocument();
-    expect(screen.getByTestId('FallbackIcon')).toBeInTheDocument();
-  });
-
-  it('should clear error message when user clicks on close button', async () => {
-    renderWithTheme(
-      <AvatarRepositionImage
-        initialImage=""
-        hasError={true}
-        errorHandler={mockErrorHandler}
-        discardImageHandler={mockDiscardImageHandler}
-      />
-    );
-
-    const closeButton = screen.getByRole('button', { name: '' });
-
-    await userEvent.click(closeButton);
-
-    expect(mockErrorHandler).toHaveBeenCalledTimes(1);
-    expect(mockErrorHandler).toHaveBeenCalledWith(false);
-  });
-
   it('should discard image when user clicks on close button', async () => {
     renderWithTheme(
       <AvatarRepositionImage
         initialImage="/image"
-        hasError={false}
         errorHandler={mockErrorHandler}
         discardImageHandler={mockDiscardImageHandler}
       />

@@ -1,25 +1,27 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import AvatarEditor from 'react-avatar-editor';
 
 import { useUser } from '../../contexts/user';
 import { CloseIcon } from '../Icons/CloseIcon';
-import { FallbackIcon } from '../Icons/FallbackIcon';
 import * as S from './styles';
 
 type AvatarRepositionImageProps = {
   initialImage: string;
-  hasError: boolean;
   discardImageHandler: () => void;
   errorHandler: (isError: boolean) => void;
 };
 
 export const AvatarRepositionImage: React.FC<AvatarRepositionImageProps> = ({
-  hasError,
   initialImage,
   errorHandler,
   discardImageHandler,
 }) => {
   const [imageZoom, setImageZoom] = useState(1);
+  const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    setViewportWidth(window.innerWidth);
+  }, [window.innerWidth]);
 
   const { saveUserImage } = useUser();
 
@@ -41,6 +43,8 @@ export const AvatarRepositionImage: React.FC<AvatarRepositionImageProps> = ({
           }
         }, 'image/jpeg');
       }
+
+      discardImageHandler();
     } catch (error) {
       console.log(error);
       errorHandler(true);
@@ -48,25 +52,7 @@ export const AvatarRepositionImage: React.FC<AvatarRepositionImageProps> = ({
     }
   };
 
-  const viewportWidth = window.innerWidth;
-
-  return hasError ? (
-    <S.Container>
-      <S.FallbackImage>
-        <FallbackIcon />
-      </S.FallbackImage>
-
-      <S.ErrorMessage>
-        <span>Sorry, the upload failed.</span>
-
-        <button onClick={() => errorHandler(false)}>Try again</button>
-      </S.ErrorMessage>
-
-      <S.CloseButton onClick={() => errorHandler(false)}>
-        <CloseIcon />
-      </S.CloseButton>
-    </S.Container>
-  ) : (
+  return (
     <S.Container>
       <AvatarEditor
         border={0}

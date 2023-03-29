@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { AvatarRepositionImage } from './components/AvatarRepositionImage';
 import { AvatarUpload } from './components/AvatarUpload';
+import { UploadError } from './components/UploadError';
 
 function App() {
   const [initialImage, setInitialImage] = useState('');
@@ -10,14 +11,18 @@ function App() {
   const discardImageHandler = () => setInitialImage('');
   const errorHandler = (isError: boolean) => setHasError(isError);
 
-  return initialImage || hasError ? (
-    <AvatarRepositionImage
-      hasError={hasError}
-      initialImage={initialImage}
-      discardImageHandler={discardImageHandler}
-      errorHandler={errorHandler}
-    />
-  ) : (
+  if (initialImage)
+    return (
+      <AvatarRepositionImage
+        initialImage={initialImage}
+        discardImageHandler={discardImageHandler}
+        errorHandler={errorHandler}
+      />
+    );
+
+  if (hasError) return <UploadError errorHandler={errorHandler} />;
+
+  return (
     <AvatarUpload
       setInitialImage={setInitialImage}
       errorHandler={errorHandler}

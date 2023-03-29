@@ -20,7 +20,7 @@ export const Upload = styled.label<FormProps>`
     border-width: 2px;
     border-radius: ${theme.border.md};
     border-style: dashed;
-    border-color: #cbd5e1;
+    border-color: ${theme.colors.gray450};
     background-color: ${!isDragActive
       ? theme.colors.gray400
       : theme.colors.gray300};

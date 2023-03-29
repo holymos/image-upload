@@ -40,7 +40,6 @@ export const Controls = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 0.75rem;
 
     span {
       align-self: flex-start;
@@ -53,6 +52,7 @@ export const Controls = styled.div`
       border-radius: ${theme.border.xl};
       background-color: ${theme.colors.gray800};
       color: ${theme.colors.white500};
+      margin-top: 2rem;
 
       &:hover {
         background-color: ${theme.colors.gray700};
@@ -78,6 +78,7 @@ export const Slider = styled.input<SliderProps>`
     );
     background-size: ${(sliderValue - 1) * 100}% 100%;
     background-repeat: no-repeat;
+    margin-top: 1rem;
 
     &[type='range']::-webkit-slider-thumb {
       -webkit-appearance: none;
@@ -110,77 +111,4 @@ export const Slider = styled.input<SliderProps>`
 export const CloseButton = styled.button`
   margin-top: 1rem;
   align-self: flex-start;
-`;
-
-export const FallbackImage = styled.div`
-  ${({ theme }) => css`
-    width: 120px;
-    height: 120px;
-    border-radius: ${theme.border.full};
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: ${theme.colors.gray700};
-    flex-shrink: 0;
-
-    svg {
-      width: 35px;
-      height: 35px;
-    }
-
-    @media (max-width: 800px) {
-      width: 95px;
-      height: 95px;
-
-      svg {
-        width: 25px;
-        height: 25px;
-      }
-    }
-
-    @media (max-width: 400px) {
-      width: 70px;
-      height: 70px;
-
-      svg {
-        width: 15px;
-        height: 15px;
-      }
-    }
-  `}
-`;
-
-export const ErrorMessage = styled.div`
-  ${({ theme }) => css`
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 0.5rem;
-
-    span {
-      font-size: 1rem;
-      text-align: left;
-      color: ${theme.colors.red500};
-    }
-
-    button {
-      background: none;
-      text-decoration: underline;
-      color: ${theme.colors.gray900};
-
-      &:hover {
-        color: ${theme.colors.gray700};
-      }
-    }
-
-    @media (max-width: 300px) {
-      span {
-        font-size: 0.75rem;
-      }
-
-      button {
-        font-size: 0.65rem;
-      }
-    }
-  `}
 `;
