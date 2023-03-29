@@ -21,6 +21,12 @@
     "eslint-plugin-import-helpers",
     "prettier"
   ],
+  "settings": {
+    "react": {
+      "pragma": "React",
+      "version": "detect"
+    }
+  },
   "rules": {
     "prettier/prettier": "error",
     "react/prop-types": "off",

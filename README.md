@@ -15,4 +15,5 @@ A React component to let users upload and crop avatar images.
 ## Testing
 
 1. Run tests: `yarn test` | `npm run test`
+1. Run tests E2E: `yarn test:e2e` | `npm run test:e2e`
 2. Generate coverage report: `yarn test --coverage` | `npm run tests --coverage`
